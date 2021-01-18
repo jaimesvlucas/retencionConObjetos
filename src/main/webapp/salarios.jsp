@@ -12,15 +12,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@page import="clases.Salario"%>
+        <%--@page import="clases.Salario"--%>
+        <jsp:useBean id="miSalario" class="clases.Salario"/>
         <% 
            String nombre=request.getParameter("nombre");
            float salario= Float.parseFloat(request.getParameter("salario"));
-           Salario s = new Salario(nombre, salario);
-           s.setRetencion(s.calcularCuotaRetencion());
-           s.setSalarioNeto(s.calcularSalarioNeto());
+           //Salario s = new Salario(nombre, salario);
+           //s.setRetencion(s.calcularCuotaRetencion());
+           //s.setSalarioNeto(s.calcularSalarioNeto());
         %>
-        <p>El salario neto de <%= s.getNombre() %> es <%= s.getSalarioNeto() %> , tiene una retencion de <%= s.getPorcentaje() %>% y su salario bruto es de <%= s.getSalario() %></p>
+        <jsp:setProperty name="miSalario" property="nombre" value="<%=nombre%>"/>
+        <jsp:setProperty name="miSalario" property="salario" value="<%=salario%>"/>
+        <p>El salario neto de <jsp:getProperty name='miSalario' property="nombre" />
+        es <jsp:getProperty name='miSalario' property="salarioNeto" />, tiene una retencion de 
+        <jsp:getProperty name='miSalario' property="porcentaje" />% y su salario bruto es de 
+        <jsp:getProperty name='miSalario' property="salario" />
+        </p>
 
         <a href="index.jsp">Volver al index</a>
     </body>

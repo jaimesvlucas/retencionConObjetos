@@ -14,6 +14,9 @@ public class Salario {
     private float salario, retencion, salarioNeto;
     private double porcentaje;
 
+    public Salario() {
+    }
+
     public Salario(String nombre, float salario) {
         this.nombre = nombre;
         this.salario = salario;
@@ -33,6 +36,17 @@ public class Salario {
 
     public void setSalario(float salario) {
         this.salario = salario;
+        if((this.salario>1000) && (this.salario<=3000)){
+            this.porcentaje = 0.1;
+            this.retencion= (float)(this.salario*this.porcentaje);
+        }else if(this.salario>3000){
+            this.porcentaje = 0.2;
+            this.retencion= (float)(this.salario*this.porcentaje);
+        }else{
+            this.porcentaje=0;
+           this.retencion= this.salario;
+        }
+        this.salarioNeto=this.salario-retencion;
     }
 
     public float getRetencion() {
@@ -57,23 +71,6 @@ public class Salario {
 
     public void setPorcentaje(double porcentaje) {
         this.porcentaje = porcentaje;
-    }
-    
-    public float calcularCuotaRetencion(){
-        if((this.salario>1000) && (this.salario<=3000)){
-            this.porcentaje = 0.1;
-            return (float)(this.salario*this.porcentaje);
-        }else if(this.salario>3000){
-            this.porcentaje = 0.2;
-            return (float)(this.salario*this.porcentaje);
-        }else{
-            this.porcentaje=0;
-            return this.salario;
-        }
-    }
-    
-    public float calcularSalarioNeto(){
-        return this.salario-retencion;
     }
     
 }
